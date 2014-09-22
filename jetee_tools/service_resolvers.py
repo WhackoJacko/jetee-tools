@@ -18,7 +18,7 @@ class JeteeServiceConfigResolver(object):
     def resolve(self):
         port = None
         srv_req = DNS.Request(qtype='srv', server=self.dns_server)
-        srv_result = srv_req.req(self.host)
+        srv_result = srv_req.req(self.get_real_host())
         for result in srv_result.answers:
             if result['typename'] == 'SRV':
                 port = result[u'data'][2]
