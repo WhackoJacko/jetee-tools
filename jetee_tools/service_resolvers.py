@@ -38,7 +38,7 @@ class DjangoDatabaseJeteeServiceConfigResolver(JeteeServiceConfigResolver):
             'NAME': 'docker',  # Or path to database file if using sqlite3.
             'USER': 'docker',  # Not used with sqlite3.
             'PASSWORD': u'docker',  # Not used with sqlite3.
-            'HOST': self.host,  # Set to empty string for localhost. Not used with sqlite3.
+            'HOST': self.service_ip,  # Set to empty string for localhost. Not used with sqlite3.
             'PORT': port,  # Set to empty string for default. Not used with sqlite3.
         }
 
