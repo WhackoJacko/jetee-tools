@@ -24,7 +24,6 @@ class JeteeServiceConfigResolver(object):
         for result in srv_result.answers:
             if result['typename'] == 'SRV':
                 port = result[u'data'][2]
-        assert port is not None
         self.port = port
 
 
