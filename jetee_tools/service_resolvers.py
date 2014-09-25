@@ -14,7 +14,7 @@ class JeteeServiceConfigResolver(object):
         self.host = host
         self.resolve_port()
 
-    def as_string(self):
+    def render(self):
         raise NotImplementedError
 
     def resolve_port(self):
@@ -33,7 +33,7 @@ class DjangoDatabaseJeteeServiceConfigResolver(JeteeServiceConfigResolver):
         self.host = host
         self.resolve_port()
 
-    def as_string(self):
+    def render(self):
         return {
             'ENGINE': 'django.db.backends.{}'.format(self.protocol),
             # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -53,5 +53,5 @@ class RedisJeteeServiceConfigResolver(JeteeServiceConfigResolver):
         self.host = host
         self.resolve_port()
 
-    def as_string(self):
+    def render(self):
         return u'redis://{}:{}/{}'.format(self.service_ip, self.port, self.db)
