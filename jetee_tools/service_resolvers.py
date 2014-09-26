@@ -19,11 +19,14 @@ class JeteeServiceConfigResolver(object):
 
     def resolve_port(self):
         port = None
-        srv_req = DNS.Request(qtype='srv', server=self.dns_server)
-        srv_result = srv_req.req(self.get_real_host())
-        for result in srv_result.answers:
-            if result['typename'] == 'SRV':
-                port = result[u'data'][2]
+        srv_req = DNS.Request(qtype='srv', server=self.dns_server, timeout=0.1)
+        try:
+            srv_result = srv_req.req(self.get_real_host())
+            for result in srv_result.answers:
+                if result['typename'] == 'SRV':
+                    port = result[u'data'][2]
+        except (DNS.TimeoutError, DNS.Base.SocketError):
+            pass
         self.port = port
 
 
@@ -55,3 +58,18 @@ class RedisJeteeServiceConfigResolver(JeteeServiceConfigResolver):
 
     def render(self):
         return u'redis://{}:{}/{}'.format(self.service_ip, self.port, self.db)
+
+
+class ElasticSearchJeteeServiceConfigResolver(JeteeServiceConfigResolver):
+    def __init__(self, host, engine, index_name):
+        self.host = host
+        self.engine = engine
+        self.index_name = index_name
+        self.resolve_port()
+
+    def render(self):
+        return {
+            'ENGINE': self.engine,
+            'URL': 'http://{}:{}'.format(self.service_ip, self.port),
+            'INDEX_NAME': self.index_name,
+        }
