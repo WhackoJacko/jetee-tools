@@ -60,7 +60,7 @@ class RedisJeteeServiceConfigResolver(JeteeServiceConfigResolver):
         return u'redis://{}:{}/{}'.format(self.service_ip, self.port, self.db)
 
 
-class ElasticSearchJeteeServiceConfigResolver(JeteeServiceConfigResolver):
+class HaystackJeteeServiceConfigResolver(JeteeServiceConfigResolver):
     def __init__(self, host, engine, index_name):
         self.host = host
         self.engine = engine
