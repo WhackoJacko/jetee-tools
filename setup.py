@@ -1,13 +1,15 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 setup(
     name='jetee_tools',
     version=0.1,
-    # long_description=open(join(dirname(__file__), 'README.md')).read(),
     author='Sergey Dubinin',
+    author_email='whackojacko.ru@gmail.com',
     install_requires=[
         u'pydns',
     ],
-    url='https://github.com/WhackoJacko/JeteeTools'
+    packages=find_packages(),
+    url='https://github.com/WhackoJacko/JeteeTools',
+    classifiers=[],
 )
