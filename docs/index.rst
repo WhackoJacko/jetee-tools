@@ -9,11 +9,11 @@ Installation
 
 Install from PyPI::
 
-    pip install jetee-tools
+    pip install jetee_tools
 
 Or install the in-development version::
 
-    pip install -e git+https://github.com/WhackoJacko/Jetee.git#egg=jetee
+    pip install -e git+https://github.com/WhackoJacko/jetee-tools.git#egg=jetee_tools
 
 
 Usage example
@@ -58,4 +58,4 @@ This equivalent to::
 See the API reference for more config resolvers.
 
 .. toctree::
-jetee_tools
+    jetee_tools
