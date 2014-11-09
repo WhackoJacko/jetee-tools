@@ -15,7 +15,6 @@ Or install the in-development version::
 
     pip install -e git+https://github.com/WhackoJacko/jetee-tools.git#egg=jetee_tools
 
-
 Usage example
 =============
 
