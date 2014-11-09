@@ -1,8 +1,10 @@
 Jetee-tools
 ===========
 
-Jetee tools is utility that provides range of `config resolvers` which are to help your app get connected with Jetee
+Jetee tools is utility that provides range of `config resolvers` which are to help your app get connected with Jetee_
 services.
+
+.. _Jetee: http://jetee.readthedocs.org
 
 Installation
 ============
@@ -37,7 +39,7 @@ In order to be convenient in usage Jetee tools provides specific config resolver
     DATABASES = {
         'default': DjangoDatabaseJeteeServiceConfigResolver(
             host=u'my-project-postgresql',
-            protocol=u'postgresql_psycopg2'
+            engine=u'postgresql_psycopg2'
         ).render()
     }
 

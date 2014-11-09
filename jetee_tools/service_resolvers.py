@@ -4,7 +4,7 @@ import DNS
 class JeteeServiceConfigResolver(object):
     dns_server = '172.17.42.1'
     service_ip = u'172.17.42.1'
-    protocol = u''
+    engine = u''
     port = None
 
     def get_real_host(self):
@@ -31,14 +31,14 @@ class JeteeServiceConfigResolver(object):
 
 
 class DjangoDatabaseJeteeServiceConfigResolver(JeteeServiceConfigResolver):
-    def __init__(self, host, protocol):
-        self.protocol = protocol
+    def __init__(self, host, engine):
+        self.engine = engine
         self.host = host
         self.resolve_port()
 
     def render(self):
         return {
-            'ENGINE': 'django.db.backends.{}'.format(self.protocol),
+            'ENGINE': 'django.db.backends.{}'.format(self.engine),
             # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
             'NAME': 'docker',  # Or path to database file if using sqlite3.
             'USER': 'docker',  # Not used with sqlite3.
