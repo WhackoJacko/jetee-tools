@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='jetee_tools',
-    version=0.1,
+    version=u'0.1.2',
     author='Sergey Dubinin',
     author_email='whackojacko.ru@gmail.com',
     install_requires=[

@@ -1,9 +1,9 @@
 import DNS
 
 
-class JeteeServiceConfigResolver(object):
+class BaseServiceResolver(object):
     dns_server = '172.17.42.1'
-    service_ip = u'172.17.42.1'
+    ip = u'172.17.42.1'
     engine = u''
     port = None
 
@@ -30,7 +30,7 @@ class JeteeServiceConfigResolver(object):
         self.port = port
 
 
-class DjangoDatabaseJeteeServiceConfigResolver(JeteeServiceConfigResolver):
+class DjangoDatabaseServiceResolver(BaseServiceResolver):
     def __init__(self, host, engine):
         self.engine = engine
         self.host = host
@@ -43,12 +43,12 @@ class DjangoDatabaseJeteeServiceConfigResolver(JeteeServiceConfigResolver):
             'NAME': 'docker',  # Or path to database file if using sqlite3.
             'USER': 'docker',  # Not used with sqlite3.
             'PASSWORD': u'docker',  # Not used with sqlite3.
-            'HOST': self.service_ip,  # Set to empty string for localhost. Not used with sqlite3.
+            'HOST': self.ip,  # Set to empty string for localhost. Not used with sqlite3.
             'PORT': self.port,  # Set to empty string for default. Not used with sqlite3.
         }
 
 
-class RedisJeteeServiceConfigResolver(JeteeServiceConfigResolver):
+class RedisServiceResolver(BaseServiceResolver):
     protocol = u'redis'
 
     def __init__(self, host, db=0):
@@ -57,10 +57,10 @@ class RedisJeteeServiceConfigResolver(JeteeServiceConfigResolver):
         self.resolve_port()
 
     def render(self):
-        return u'redis://{}:{}/{}'.format(self.service_ip, self.port, self.db)
+        return u'redis://{}:{}/{}'.format(self.ip, self.port, self.db)
 
 
-class HaystackJeteeServiceConfigResolver(JeteeServiceConfigResolver):
+class HaystackServiceResolver(BaseServiceResolver):
     def __init__(self, host, engine, index_name):
         self.host = host
         self.engine = engine
@@ -70,6 +70,6 @@ class HaystackJeteeServiceConfigResolver(JeteeServiceConfigResolver):
     def render(self):
         return {
             'ENGINE': self.engine,
-            'URL': 'http://{}:{}'.format(self.service_ip, self.port),
+            'URL': 'http://{}:{}'.format(self.ip, self.port),
             'INDEX_NAME': self.index_name,
         }
